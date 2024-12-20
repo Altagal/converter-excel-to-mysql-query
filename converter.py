@@ -23,6 +23,8 @@ df = pd.read_excel(file, sheet_name=0)
 
 # NOME DA TABELA, SE FOR VAZIO OU SO ESPAÇOS, ENCERRA PROGRAMA
 table_name = input("Nome da tabela: ")
+print()
+
 if not table_name or table_name.isspace():
     print("Sem o nome da tabela não é possivel realizar a conversão.")
     sys.exit()
@@ -58,5 +60,12 @@ for row in df.values:
     query += f");\n"
     
 print(query)
+
 pyperclip.copy(query)
 print("Query mysql copiada para a área de transferencia.")
+
+want_file = input("Importar query gerada para um arquivo de texto? [Y/N]: ")
+if want_file == "Y" or want_file == "y":
+    with open(file_name + "_querys.txt", "w") as arquivo:
+        arquivo.write(query)
+    print(f"Query salva no arquivo {file_name}_querys.txt.")
