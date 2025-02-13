@@ -16,6 +16,7 @@ for file_item in os.listdir():
 # SE O ARQUIVO NAO FOR ENCONTRADO, ENCERRA PROGRAMA
 if not file:
     print("Não foram encontrados arquivos comptaiveis com o conversor na pasta expecificada.")
+    input("Pressione qualquer tecla para encerrar.")
     sys.exit()
 
 
@@ -27,6 +28,7 @@ print()
 
 if not table_name or table_name.isspace():
     print("Sem o nome da tabela não é possivel realizar a conversão.")
+    input("Pressione qualquer tecla para encerrar.")
     sys.exit()
 
 
@@ -51,15 +53,16 @@ for row in df.values:
     first_loop = True
     for value in row:
         if not first_loop:
-            query += f", {value}"
+            query += f",\"{value}\""
         else:
             first_loop = False
-            query += f"{value}"
+            query += f"\"{value}\""
 
     # FECHAMENTO DA QUERY
     query += f");\n"
     
-print(query)
+
+print("Sucesso.")
 
 pyperclip.copy(query)
 print("Query mysql copiada para a área de transferencia.")
